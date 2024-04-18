@@ -19,17 +19,17 @@ class BinarySearchTree(Generic[T]):
 
             return result
 
-    def __search(self, ref: T, subtree: Node | None, path: str = "") -> str:
+    def __search(self, ref: T, subtree: Node | None) -> dict:
         if subtree is None:
-            return "None"
+            return None
         else:
-            root = subtree.data
+            root = subtree.data['word']
             if ref < root:
-                return self.__search(ref, subtree.left, path + "->" + str(root))
+                return self.__search(ref, subtree.left)
             elif ref > root:
-                return self.__search(ref, subtree.right, path + "->" + str(root))
+                return self.__search(ref, subtree.right)
             elif ref == root:
-                return path + "->" + str(root)
+                return subtree.data
 
     def preorder(self):
         return self.__preorder(self.__root)
@@ -49,6 +49,8 @@ class BinarySearchTree(Generic[T]):
                 subtree.right = new_node
             else:
                 self.__insert(data, right)
+        elif data['word'] == subtree.data['word']:
+            subtree.data['reference'].append(data['reference'][0])
 
     def insert(self, data: dict):
         if self.__root is None:
