@@ -13,9 +13,10 @@ class BinarySearchTree(Generic[T]):
             return "None"
         else:
             root = str(subtree.data)    # obtener la raiz del arbol
-            left = self.__preorder(subtree.left) # se va ir al subarbol izquierda
-            right = self.__preorder(subtree.right) # se va ir al subarbol derecho
+            left = self.__preorder(subtree.left)  # se va ir al subarbol izquierda
+            right = self.__preorder(subtree.right)  # se va ir al subarbol derecho
             result = f"{root} ({left}, {right})"
+
             return result
 
     def __search(self, ref: T, subtree: Node | None, path: str = "") -> str:
@@ -33,15 +34,15 @@ class BinarySearchTree(Generic[T]):
     def preorder(self):
         return self.__preorder(self.__root)
 
-    def __insert(self, data: T, subtree: Node[T]):
-        if data < subtree.data:
+    def __insert(self, data: dict, subtree: Node[T]):
+        if data['word'] < subtree.data['word']:
             left = subtree.left
             if left is None:
                 new_node = Node(data)
                 subtree.left = new_node
             else:
                 self.__insert(data, left)
-        elif data > subtree.data:
+        elif data['word'] > subtree.data['word']:
             right = subtree.right
             if right is None:
                 new_node = Node(data)
@@ -49,7 +50,7 @@ class BinarySearchTree(Generic[T]):
             else:
                 self.__insert(data, right)
 
-    def insert(self, data: T):
+    def insert(self, data: dict):
         if self.__root is None:
             self.__root = Node(data)
         else:
